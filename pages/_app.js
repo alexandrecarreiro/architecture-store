@@ -1,5 +1,4 @@
-function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+import App from "app";
+import "app/app.css";
 
 export default App;

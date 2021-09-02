@@ -1,5 +1,1 @@
-function App() {
-  return <></>;
-}
-
-export default App;
+module.exports = require("./home");

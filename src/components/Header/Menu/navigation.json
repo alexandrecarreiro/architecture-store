@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Início",
+    "route": "/"
+  },
+  {
+    "title": "Projetos",
+    "route": "/projetos"
+  },
+  {
+    "title": "Sobre nós",
+    "route": "/sobre"
+  }
+]

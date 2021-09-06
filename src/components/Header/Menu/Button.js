@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Span = styled.span`
   align-items: center;
@@ -9,7 +10,7 @@ const Span = styled.span`
   cursor: pointer;
   display: flex;
   font-size: 16px;
-  height: 60%;
+  height: 100%;
   justify-content: center;
   margin-right: 20px;
   max-width: 75px;
@@ -23,10 +24,15 @@ const Span = styled.span`
 
   @media (min-width: 576px) {
     width: 200px;
+    height: 50px;
   }
 
   @media (min-width: 992px) {
     width: 300px;
+  }
+
+  @media (max-width: 576px) {
+    height: 50px;
   }
 `;
 
@@ -35,9 +41,9 @@ function Button({ title, route }) {
   const active = router.pathname === route;
 
   return (
-    <Span onClick={() => router.push(route)} active={active}>
-      {title}
-    </Span>
+    <Link href={route} passHref>
+      <Span active={active}>{title}</Span>
+    </Link>
   );
 }
 

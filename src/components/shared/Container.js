@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   align-items: ${(props) => props.alignItems};
   display: flex;
+  flex-direction: column;
   justify-content: ${(props) => props.justifyContent};
   width: 100%;
 
@@ -16,6 +17,7 @@ const Container = styled.div`
 
   @media (min-width: 992px) {
     width: 960px;
+    flex-direction: row;
   }
 
   @media (min-width: 1200px) {

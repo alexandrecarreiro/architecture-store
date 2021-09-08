@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 
 const InputArea = styled.div`
@@ -41,7 +40,7 @@ const Input = styled.input`
   border-style: none;
   border-width: 0px;
   font-size: 16px;
-  height: 100%;
+  height: 80%;
   width: 100%;
 
   &:focus {

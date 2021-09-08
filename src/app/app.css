@@ -12,6 +12,10 @@ h3 {
   margin: 0;
 }
 
+.text-alata {
+  font-family: "Alata", sans-serif;
+}
+
 .pointer {
   cursor: pointer;
 }

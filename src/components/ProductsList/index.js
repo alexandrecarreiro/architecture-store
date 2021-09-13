@@ -6,11 +6,7 @@ const Area = styled.div`
   flex: 3;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 15px;
-  margin-left: 7.5px;
-  margin-right: 7.5px;
-  margin-top: 15px;
-  padding: 15px;
+  margin-top: 10px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -19,6 +15,8 @@ const Area = styled.div`
   @media (max-width: 576px) {
     grid-template-columns: repeat(1, 1fr);
   }
+
+  padding: 15px;
 `;
 
 function ProductsList() {

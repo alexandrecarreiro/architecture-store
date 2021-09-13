@@ -2,6 +2,10 @@ import { forwardRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+import Input from "components/shared/Input";
+import Label from "components/shared/Label";
+import Button from "./Button";
+
 const Area = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
@@ -49,6 +53,17 @@ const Content = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(${(props) => props.columns || 4}, 1fr);
+  margin-bottom: 10px;
+
+  &:nth-child(2) {
+    background-color: red;
+  }
+`;
+
 const forwardRefToContent = forwardRef(({ children }, ref) => (
   <Content ref={ref}>{children}</Content>
 ));
@@ -59,6 +74,12 @@ const MotionContent = motion(forwardRefToContent);
 
 function Sidebar() {
   const [isFilterVisible, setIsFilterVisible] = useState("visible");
+  const [filter, setFilter] = useState({
+    rooms: [],
+    bathrooms: [],
+    parkings: [],
+    keywords: "",
+  });
 
   function handleFilterAnimate() {
     if (window.screen.width < 992) {
@@ -66,6 +87,25 @@ function Sidebar() {
     } else {
       setIsFilterVisible("visible");
     }
+  }
+
+  function checkBoxSelect(field, value) {
+    let data = filter[field];
+    let index = data.indexOf(value);
+
+    if (index > -1) {
+      data.splice(index, 1);
+
+      return setFilter({
+        ...filter,
+        data,
+      });
+    }
+
+    return setFilter({
+      ...filter,
+      [field]: data.concat(value),
+    });
   }
 
   useEffect(() => {
@@ -107,7 +147,82 @@ function Sidebar() {
         }}
       >
         <div>
-          <h3>Content</h3>
+          <Label>Palavra chave:</Label>
+          <Input type="text" placeholder="Digite uma palavra-chave" />
+          <Label>Área Quadrada:</Label>
+          <Row columns={2}>
+            <Input type="number" placeholder="Min." />
+            <Input type="number" placeholder="Max." />
+          </Row>
+          <Label>Quantos Quartos?</Label>
+          <Row>
+            <Button
+              value={1}
+              onClick={() => checkBoxSelect("rooms", 1)}
+              selected={filter.rooms.indexOf(1) > -1}
+            />
+            <Button
+              value={2}
+              onClick={() => checkBoxSelect("rooms", 2)}
+              selected={filter.rooms.indexOf(2) > -1}
+            />
+            <Button
+              value={3}
+              onClick={() => checkBoxSelect("rooms", 3)}
+              selected={filter.rooms.indexOf(3) > -1}
+            />
+            <Button
+              value="4+"
+              onClick={() => checkBoxSelect("rooms", 4)}
+              selected={filter.rooms.indexOf(4) > -1}
+            />
+          </Row>
+          <Label>Quantos Banheiros?</Label>
+          <Row>
+            <Button
+              value={1}
+              onClick={() => checkBoxSelect("bathrooms", 1)}
+              selected={filter.bathrooms.indexOf(1) > -1}
+            />
+            <Button
+              value={2}
+              onClick={() => checkBoxSelect("bathrooms", 2)}
+              selected={filter.bathrooms.indexOf(2) > -1}
+            />
+            <Button
+              value={3}
+              onClick={() => checkBoxSelect("bathrooms", 3)}
+              selected={filter.bathrooms.indexOf(3) > -1}
+            />
+            <Button
+              value="4+"
+              onClick={() => checkBoxSelect("bathrooms", 4)}
+              selected={filter.bathrooms.indexOf(4) > -1}
+            />
+          </Row>
+          <Label>Quantas Vagas?</Label>
+          <Row>
+            <Button
+              value={1}
+              onClick={() => checkBoxSelect("parkings", 1)}
+              selected={filter.parkings.indexOf(1) > -1}
+            />
+            <Button
+              value={2}
+              onClick={() => checkBoxSelect("parkings", 2)}
+              selected={filter.parkings.indexOf(2) > -1}
+            />
+            <Button
+              value={3}
+              onClick={() => checkBoxSelect("parkings", 3)}
+              selected={filter.parkings.indexOf(3) > -1}
+            />
+            <Button
+              value="4+"
+              onClick={() => checkBoxSelect("parkings", 4)}
+              selected={filter.parkings.indexOf(4) > -1}
+            />
+          </Row>
         </div>
       </MotionContent>
     </Area>

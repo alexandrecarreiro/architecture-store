@@ -36,6 +36,10 @@ const Number = styled.div`
   color: #000;
   font-size: 16px;
   margin-top: 10px;
+
+  & > span {
+    font-size: 12px;
+  }
 `;
 
 const InfoArea = styled.div`
@@ -68,9 +72,15 @@ function ProductCard() {
             <Icon src="/icons/toilet.png" />
             <Number>1</Number>
           </Info>
-          <Info>
+          <Info borderRight>
             <Icon src="/icons/garage.png" />
             <Number>1</Number>
+          </Info>
+          <Info>
+            <Icon src="/icons/square-area.png" />
+            <Number>
+              100<span>m²</span>
+            </Number>
           </Info>
         </InfoArea>
       </Content>

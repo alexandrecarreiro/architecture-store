@@ -56,30 +56,38 @@ const Info = styled.div`
   justify-content: center;
 `;
 
-function ProductCard() {
+function ProductCard({
+  images,
+  title,
+  rooms,
+  bathrooms,
+  parkings,
+  squareArea,
+}) {
   return (
     <Section>
-      <Img src="https://via.placeholder.com/500" />
+      <Img src={images[0].url} />
       <Content>
-        <Title className="text-alata">Casa 2 quartos e 1 vaga</Title>
+        <Title className="text-alata">{title}</Title>
         <Hr />
         <InfoArea>
           <Info borderRight>
             <Icon src="/icons/bed.png" />
-            <Number>1</Number>
+            <Number>{rooms}</Number>
           </Info>
           <Info borderRight>
             <Icon src="/icons/toilet.png" />
-            <Number>1</Number>
+            <Number>{bathrooms}</Number>
           </Info>
           <Info borderRight>
             <Icon src="/icons/garage.png" />
-            <Number>1</Number>
+            <Number>{parkings}</Number>
           </Info>
           <Info>
             <Icon src="/icons/square-area.png" />
             <Number>
-              100<span>m²</span>
+              {squareArea}
+              <span>m²</span>
             </Number>
           </Info>
         </InfoArea>

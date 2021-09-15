@@ -7,6 +7,7 @@ const Area = styled.div`
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 10px;
+  padding: 15px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -15,14 +16,14 @@ const Area = styled.div`
   @media (max-width: 576px) {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  padding: 15px;
 `;
 
-function ProductsList() {
+function ProductsList({ products }) {
   return (
     <Area>
-      <ProductCard />
+      {products.map((index, key) => (
+        <ProductCard {...index} key={key} />
+      ))}
     </Area>
   );
 }

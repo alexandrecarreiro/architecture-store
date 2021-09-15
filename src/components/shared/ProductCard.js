@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Slide from "components/shared/Slide";
 
 const Section = styled.section`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -66,7 +67,7 @@ function ProductCard({
 }) {
   return (
     <Section>
-      <Img src={images[0].url} />
+      <Slide images={images} />
       <Content>
         <Title className="text-alata">{title}</Title>
         <Hr />

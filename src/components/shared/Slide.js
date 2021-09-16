@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useRef, useState, useLayoutEffect, forwardRef } from "react";
+import { useRef, useState, useCallback, forwardRef } from "react";
 import { motion, useSpring } from "framer-motion";
+import useIsomorphicLayoutEffect from "lib/hooks/useIsomorphicLayoutEffect";
 
 const Area = styled.div`
   display: flex;
@@ -64,11 +65,22 @@ function Slide({ images }) {
   const [slideWidth, setSlideWidth] = useState(0);
   const right = useSpring(0);
 
-  useLayoutEffect(() => {
+  const setOffsetWidth = useCallback(() => {
     if (slideRef.current) {
       setSlideWidth(slideRef.current.offsetWidth);
+      right.set(0);
     }
-  }, []);
+  }, [right]);
+
+  useIsomorphicLayoutEffect(() => {
+    setOffsetWidth();
+
+    window.addEventListener("resize", setOffsetWidth);
+
+    return () => {
+      window.removeEventListener("resize", setOffsetWidth);
+    };
+  }, [setOffsetWidth]);
 
   function swipe(type) {
     let rightPosition = right.get();

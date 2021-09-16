@@ -1,6 +1,7 @@
-import { forwardRef, useState, useEffect } from "react";
+import { forwardRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import useIsomorphicLayoutEffect from "lib/hooks/useIsomorphicLayoutEffect";
 
 import Input from "components/shared/Input";
 import Label from "components/shared/Label";
@@ -108,10 +109,14 @@ function Sidebar() {
     });
   }
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     handleFilterAnimate();
 
     window.addEventListener("resize", handleFilterAnimate);
+
+    return () => {
+      window.removeEventListener("resize", handleFilterAnimate);
+    };
   }, []);
 
   return (

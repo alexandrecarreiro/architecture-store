@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useIsomorphicLayoutEffect from "lib/hooks/useIsomorphicLayoutEffect";
+
 import Container from "components/shared/Container";
 import Menu from "./Menu";
 import Nav from "./Nav";
@@ -16,10 +18,14 @@ function Header() {
     }
   }
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     handleMenuAnimate();
 
     window.addEventListener("resize", handleMenuAnimate);
+
+    return () => {
+      window.removeEventListener("resize", handleMenuAnimate);
+    };
   }, []);
 
   return (

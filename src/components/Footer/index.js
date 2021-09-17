@@ -9,6 +9,7 @@ const Area = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 50px;
   padding-bottom: 15px;
   padding-top: 15px;
   width: 100%;

@@ -20,11 +20,19 @@ model Product {
   description String         @db.LongText
   price       Decimal        @db.Decimal(10, 2)
   images      ProductImage[]
+  plants      ProductPlant[]
 }
 
 model ProductImage {
   id        Int     @id @default(autoincrement())
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  url       String
+  url       String  @db.LongText
+}
+
+model ProductPlant {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  url       String  @db.LongText
 }

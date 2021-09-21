@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
+import useIsomorphicLayoutEffect from "lib/hooks/useIsomorphicLayoutEffect";
 import { Carousel } from "react-carousel-minimal/next";
 import "react-carousel-minimal/stylesheet";
 
@@ -6,10 +7,15 @@ function Slide({ images }) {
   const slideRef = useRef();
   const [slideWidth, setSlideWidth] = useState(0);
 
-  useEffect(() => {
+  const onWindowResize = useCallback(() => {
     if (slideRef.current) {
       setSlideWidth(slideRef.current.offsetWidth);
     }
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    onWindowResize();
+    window.addEventListener("resize", onWindowResize);
   }, []);
 
   return (

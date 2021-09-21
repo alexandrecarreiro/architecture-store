@@ -39,7 +39,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:wght@400;500&display=swap"
             rel="stylesheet"
           />
-          <link rel="icon" href="favicon.svg" type="image/svg+xml"></link>
+          <link rel="shortcut icon" href="/favicon.svg" />
         </Head>
         <body>
           <Main />

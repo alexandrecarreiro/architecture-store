@@ -20,3 +20,26 @@ h4 {
 .pointer {
   cursor: pointer;
 }
+
+.active-thumbnail {
+  border: 1px solid #222222 !important;
+}
+
+.prev,
+.next {
+  color: #222222 !important;
+}
+
+.prev:hover,
+.next:hover {
+  color: #ffffff !important;
+}
+
+.dot {
+  opacity: 0.5 !important;
+  background-color: #222222 !important;
+}
+
+.active {
+  opacity: 1 !important;
+}

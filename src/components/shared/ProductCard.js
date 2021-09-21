@@ -1,18 +1,28 @@
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
-import Slide from "components/shared/Slide";
 
 const Section = styled.section`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  cursor: pointer;
   flex: 1 25%;
 `;
 
-const Img = styled.img`
+const ImgArea = styled.div`
   width: 100%;
 `;
 
+const Img = styled.img`
+  height: 1280px;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  position: relative;
+  width: 1920px;
+`;
+
 const Content = styled.div`
-  width: 100%
+  cursor: pointer;
   height: auto;
   padding: 15px;
 `;
@@ -64,11 +74,24 @@ function ProductCard({
   bathrooms,
   parkings,
   squareArea,
+  id,
 }) {
+  const [offsetWidth, setOffsetWidth] = useState(0);
+  const productCardRef = useRef();
+
+  useEffect(() => {
+    if (productCardRef.current) {
+      setOffsetWidth(productCardRef.current.offsetWidth);
+    }
+  }, []);
+
+  const router = useRouter();
   return (
-    <Section>
-      <Slide images={images} />
-      <Content>
+    <Section ref={productCardRef}>
+      <ImgArea style={{ height: (offsetWidth / 3) * 2 }}>
+        <Img src={images[0].url} />
+      </ImgArea>
+      <Content onClick={() => router.push(`/projeto/${id}`)}>
         <Title className="text-alata">{title}</Title>
         <Hr />
         <InfoArea>

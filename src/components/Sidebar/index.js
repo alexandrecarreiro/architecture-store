@@ -59,10 +59,6 @@ const Row = styled.div`
   gap: 20px;
   grid-template-columns: repeat(${(props) => props.columns || 4}, 1fr);
   margin-bottom: 10px;
-
-  &:nth-child(2) {
-    background-color: red;
-  }
 `;
 
 const forwardRefToContent = forwardRef(({ children }, ref) => (

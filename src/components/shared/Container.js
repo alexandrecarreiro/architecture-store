@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Container = styled.div`
   align-items: ${(props) => props.alignItems};
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.flexDirection || "column"};
   justify-content: ${(props) => props.justifyContent};
+  overflow: hidden;
   width: 100%;
 
   @media (min-width: 576px) {
@@ -17,7 +18,7 @@ const Container = styled.div`
 
   @media (min-width: 992px) {
     width: 960px;
-    flex-direction: row;
+    flex-direction: ${(props) => props.flexDirection || "row"};
   }
 
   @media (min-width: 1200px) {

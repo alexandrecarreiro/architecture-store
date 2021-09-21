@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import Container from "components/shared/Container";
 import Slide from "components/shared/Slide";
 import Button from "components/shared/Button";
+import Related from "components/shared/Related";
 
 const Area = styled.div`
   display: flex;
@@ -86,6 +87,7 @@ function Projeto({
     parkings,
     squareArea,
   },
+  related,
 }) {
   return (
     <Container flexDirection="column">
@@ -135,6 +137,7 @@ function Projeto({
       {plants.map((index, key) => (
         <Plant src={index.url} key={key} />
       ))}
+      <Related products={related} />
     </Container>
   );
 }
@@ -142,19 +145,49 @@ function Projeto({
 const prisma = new PrismaClient();
 
 export async function getServerSideProps({ params: { id } }) {
-  const product = await prisma.product.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-    include: {
-      images: true,
-      plants: true,
-    },
-  });
+  const product = reparse(
+    await prisma.product.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      include: {
+        images: true,
+        plants: true,
+      },
+    })
+  );
+
+  const related = reparse(
+    await prisma.product.findMany({
+      take: 4,
+      where: {
+        OR: [
+          { rooms: { in: product.rooms } },
+          { bathrooms: { in: product.bathrooms } },
+          { parkings: { in: product.parkings } },
+          {
+            squareArea: {
+              lte: product.squareArea + 30,
+              gte: product.squareArea - 30,
+            },
+          },
+        ],
+        NOT: {
+          id: product.id,
+        },
+      },
+      include: {
+        images: {
+          take: 1,
+        },
+      },
+    })
+  );
 
   return {
     props: {
-      product: reparse(product),
+      product,
+      related,
     },
   };
 }

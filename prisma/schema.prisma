@@ -2,12 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 model Product {
@@ -17,7 +18,7 @@ model Product {
   bathrooms   Int
   parkings    Int
   squareArea  Int
-  description String         @db.LongText
+  description String         @db.VarChar(500)
   price       Decimal        @db.Decimal(10, 2)
   images      ProductImage[]
   plants      ProductPlant[]
@@ -27,12 +28,12 @@ model ProductImage {
   id        Int     @id @default(autoincrement())
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  url       String  @db.LongText
+  url       String  @db.VarChar(200)
 }
 
 model ProductPlant {
   id        Int     @id @default(autoincrement())
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  url       String  @db.LongText
+  url       String  @db.VarChar(200)
 }

@@ -15,7 +15,8 @@
     "react": "17.0.2",
     "react-carousel-minimal": "https://github.com/alexandrekarreiro/react-carousel-minimal",
     "react-dom": "17.0.2",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@prisma/client": "^3.0.2",

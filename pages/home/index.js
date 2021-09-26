@@ -1,29 +1,35 @@
+import { useRouter } from "next/router";
+
 import Container from "components/shared/Container";
 import Sidebar from "components/Sidebar";
 import ProductsList from "components/ProductsList";
-import reparse from "lib/json/reparse";
 
-import { PrismaClient } from "@prisma/client";
+import { getProducts } from "../api/products";
 
-const prisma = new PrismaClient();
+export async function getServerSideProps({ query }) {
+  const { page } = query;
+  const products = await getProducts({ page });
 
-export async function getServerSideProps() {
-  const products = await prisma.product.findMany({
-    include: {
-      images: true,
-    },
-  });
+  if (page > products.totalPages) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
+
   return {
-    props: {
-      products: reparse(products),
-    },
+    props: { ...products },
   };
 }
 
 function Home({ products }) {
+  const router = useRouter();
   return (
     <Container justifyContent="center">
-      <Sidebar />
+      <Sidebar router={router} />
       <ProductsList products={products} />
     </Container>
   );

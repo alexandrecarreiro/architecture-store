@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import reparse from "lib/json/reparse";
-import { PrismaClient } from "@prisma/client";
+
+import { getProduct } from "../api/product";
+import { getProductRelated } from "../api/product/related";
 
 import Container from "components/shared/Container";
 import Slide from "components/shared/Slide";
@@ -142,47 +144,16 @@ function Projeto({
   );
 }
 
-const prisma = new PrismaClient();
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    fallback: true,
+  };
+}
 
-export async function getServerSideProps({ params: { id } }) {
-  const product = reparse(
-    await prisma.product.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-      include: {
-        images: true,
-        plants: true,
-      },
-    })
-  );
-
-  const related = reparse(
-    await prisma.product.findMany({
-      take: 4,
-      where: {
-        OR: [
-          { rooms: { in: product.rooms } },
-          { bathrooms: { in: product.bathrooms } },
-          { parkings: { in: product.parkings } },
-          {
-            squareArea: {
-              lte: product.squareArea + 30,
-              gte: product.squareArea - 30,
-            },
-          },
-        ],
-        NOT: {
-          id: product.id,
-        },
-      },
-      include: {
-        images: {
-          take: 1,
-        },
-      },
-    })
-  );
+export async function getStaticProps({ params: { id } }) {
+  const product = await getProduct({ id: parseInt(id, 10) });
+  const related = await getProductRelated({ id: parseInt(id, 10) });
 
   return {
     props: {

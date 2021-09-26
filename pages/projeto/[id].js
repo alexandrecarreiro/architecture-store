@@ -77,54 +77,45 @@ const Plant = styled.img`
   width: 100%;
 `;
 
-function Projeto({
-  product: {
-    images,
-    plants,
-    title,
-    description,
-    price,
-    rooms,
-    bathrooms,
-    parkings,
-    squareArea,
-  },
-  related,
-}) {
+function Projeto({ product, related }) {
   return (
     <Container flexDirection="column">
       <Area>
         <ImagesSide>
-          <Slide images={images || ["https://via.placeholder.com/1920x1080"]} />
+          <Slide
+            images={
+              product?.images || ["https://via.placeholder.com/1920x1080"]
+            }
+          />
         </ImagesSide>
         <InfoSide>
           <div>
-            <h1>{title || ""}</h1>
+            <h1>{product?.title || ""}</h1>
             <Hr />
             <InfoArea>
               <Info borderRight>
                 <Icon src="/icons/bed.png" />
-                <Number>{rooms || "0"}</Number>
+                <Number>{product?.rooms || "0"}</Number>
               </Info>
               <Info borderRight>
                 <Icon src="/icons/toilet.png" />
-                <Number>{bathrooms || "0"}</Number>
+                <Number>{product?.bathrooms || "0"}</Number>
               </Info>
               <Info borderRight>
                 <Icon src="/icons/garage.png" />
-                <Number>{parkings || "0"}</Number>
+                <Number>{product?.parkings || "0"}</Number>
               </Info>
               <Info>
                 <Icon src="/icons/square-area.png" />
                 <Number>
-                  {squareArea || "0"}
+                  {product?.squareArea || "0"}
                   <span>m²</span>
                 </Number>
               </Info>
             </InfoArea>
-            <p>{description || ""}</p>
+            <p>{product?.description || ""}</p>
             <h1>
-              {parseFloat(price).toLocaleString("pt-br", {
+              {parseFloat(product?.price).toLocaleString("pt-br", {
                 style: "currency",
                 currency: "BRL",
               }) || ""}
@@ -135,8 +126,10 @@ function Projeto({
           </div>
         </InfoSide>
       </Area>
-      {plants.length > 0 && <PlantTitle>Planta Humanizada</PlantTitle>}
-      {plants.map((index, key) => (
+      {product?.plants?.length > 0 && (
+        <PlantTitle>Planta Humanizada</PlantTitle>
+      )}
+      {product?.plants?.map((index, key) => (
         <Plant
           src={index.url || "https://via.placeholder.com/1920x1080"}
           key={key}

@@ -44,7 +44,7 @@ function Related({ products }) {
           <ProductCard {...index} key={key} />
         ))}
       </Area>
-      {products.length === 0 && (
+      {products?.length === 0 && (
         <Msg>Infelizmente não temos nenhum produto relacionado.</Msg>
       )}
     </>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.span.attrs((props) => ({
+const ButtonFilter = styled.span.attrs((props) => ({
   children: props.value,
 }))`
   align-items: center;
@@ -16,4 +16,4 @@ const Button = styled.span.attrs((props) => ({
   margin-top: 10px;
 `;
 
-export default Button;
+export default ButtonFilter;

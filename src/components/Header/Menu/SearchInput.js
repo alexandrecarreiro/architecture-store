@@ -1,6 +1,8 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const InputArea = styled.div`
+const InputArea = styled.form`
   align-items: center;
   display: flex;
   font-size: 16px;
@@ -55,10 +57,33 @@ const Icon = styled.img`
 `;
 
 function SearchInput() {
+  const [keywords, setKeywords] = useState("");
+  const router = useRouter();
   return (
-    <InputArea>
-      <Input type="text" placeholder="Do que você precisa?" />
-      <Icon src="/icons/search.svg" />
+    <InputArea
+      onSubmit={(e) => {
+        e.preventDefault();
+        router.push({
+          pathname: "/busca",
+          query: { keywords },
+        });
+      }}
+    >
+      <Input
+        type="text"
+        onChange={(e) => setKeywords(e.target.value)}
+        value={keywords}
+        placeholder="Do que você precisa?"
+      />
+      <Icon
+        src="/icons/search.svg"
+        onClick={() =>
+          router.push({
+            pathname: "/busca",
+            query: { keywords },
+          })
+        }
+      />
     </InputArea>
   );
 }

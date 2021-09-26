@@ -95,39 +95,39 @@ function Projeto({
     <Container flexDirection="column">
       <Area>
         <ImagesSide>
-          <Slide images={images} />
+          <Slide images={images || ["https://via.placeholder.com/1920x1080"]} />
         </ImagesSide>
         <InfoSide>
           <div>
-            <h1>{title}</h1>
+            <h1>{title || ""}</h1>
             <Hr />
             <InfoArea>
               <Info borderRight>
                 <Icon src="/icons/bed.png" />
-                <Number>{rooms}</Number>
+                <Number>{rooms || "0"}</Number>
               </Info>
               <Info borderRight>
                 <Icon src="/icons/toilet.png" />
-                <Number>{bathrooms}</Number>
+                <Number>{bathrooms || "0"}</Number>
               </Info>
               <Info borderRight>
                 <Icon src="/icons/garage.png" />
-                <Number>{parkings}</Number>
+                <Number>{parkings || "0"}</Number>
               </Info>
               <Info>
                 <Icon src="/icons/square-area.png" />
                 <Number>
-                  {squareArea}
+                  {squareArea || "0"}
                   <span>m²</span>
                 </Number>
               </Info>
             </InfoArea>
-            <p>{description}</p>
+            <p>{description || ""}</p>
             <h1>
               {parseFloat(price).toLocaleString("pt-br", {
                 style: "currency",
                 currency: "BRL",
-              })}
+              }) || ""}
             </h1>
             <Button width="100%" style={{ marginTop: 15 }}>
               <h3>Comprar</h3>
@@ -137,7 +137,10 @@ function Projeto({
       </Area>
       {plants.length > 0 && <PlantTitle>Planta Humanizada</PlantTitle>}
       {plants.map((index, key) => (
-        <Plant src={index.url} key={key} />
+        <Plant
+          src={index.url || "https://via.placeholder.com/1920x1080"}
+          key={key}
+        />
       ))}
       <Related products={related} />
     </Container>
@@ -146,7 +149,7 @@ function Projeto({
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    paths: [],
     fallback: true,
   };
 }

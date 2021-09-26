@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e .env.development.local next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "studio:dev": "dotenv -e .env.development.local prisma studio"
+    "studio": "prisma studio"
   },
   "dependencies": {
     "framer-motion": "^4.1.17",

@@ -6,12 +6,26 @@ const paramsDefault = {
   take: 10,
 };
 
+export async function getProductsIds() {
+  const products = await prisma.product.findMany({
+    select: {
+      id: true,
+    },
+  });
+
+  let ids = products.map((v) => v.id.toString());
+
+  let result = ids.map((v) => ({ params: { id: v } }));
+
+  return result;
+}
+
 export async function getProducts({
   page = paramsDefault.page,
   take = paramsDefault.take,
 } = {}) {
-  let countProducts = await prisma.product.count();
-  let totalPages = Math.ceil(countProducts / take);
+  let count = await prisma.product.count();
+  let totalPages = Math.ceil(count / take);
 
   const manyProducts = reparse(
     await prisma.product.findMany({

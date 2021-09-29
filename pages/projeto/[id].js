@@ -2,6 +2,7 @@ import styled from "styled-components";
 import reparse from "lib/json/reparse";
 
 import { getProduct } from "../api/product";
+import { getProductsIds } from "../api/products";
 import { getProductRelated } from "../api/product/related";
 
 import Container from "components/shared/Container";
@@ -73,6 +74,14 @@ const PlantTitle = styled.h1`
   width: 100%;
 `;
 
+const PlantArea = styled.div`
+  align-self: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+`;
+
 const Plant = styled.img`
   width: 100%;
 `;
@@ -129,20 +138,24 @@ function Projeto({ product, related }) {
       {product?.plants?.length > 0 && (
         <PlantTitle>Planta Humanizada</PlantTitle>
       )}
-      {product?.plants?.map((index, key) => (
-        <Plant
-          src={index.url || "https://via.placeholder.com/1920x1080"}
-          key={key}
-        />
-      ))}
+      <PlantArea>
+        {product?.plants?.map((index, key) => (
+          <Plant
+            src={index.url || "https://via.placeholder.com/1920x1080"}
+            key={key}
+          />
+        ))}
+      </PlantArea>
       <Related products={related} />
     </Container>
   );
 }
 
 export async function getStaticPaths() {
+  const paths = await getProductsIds();
+
   return {
-    paths: [],
+    paths,
     fallback: true,
   };
 }

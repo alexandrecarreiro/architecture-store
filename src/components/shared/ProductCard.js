@@ -30,6 +30,7 @@ const Content = styled.div`
 const Title = styled.div`
   color: black;
   font-size: 18px;
+  height: 50px;
 `;
 
 const Hr = styled.hr`

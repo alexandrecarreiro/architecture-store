@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import reparse from "lib/json/reparse";
+import Modal from "react-modal";
 
 import { getProduct } from "../api/product";
 import { getProductsIds } from "../api/products";
@@ -86,11 +87,20 @@ const Plant = styled.img`
   width: 100%;
 `;
 
+const Close = styled.span`
+  cursor: pointer;
+  left: 60px;
+  position: fixed;
+  top: 60px;
+`;
+
 function Projeto({ product, related }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <Container flexDirection="column">
       <Area>
-        <ImagesSide>
+        <ImagesSide onClick={() => setModalIsOpen(true)}>
           <Slide
             images={
               product?.images || ["https://via.placeholder.com/1920x1080"]
@@ -143,9 +153,29 @@ function Projeto({ product, related }) {
           <Plant
             src={index.url || "https://via.placeholder.com/1920x1080"}
             key={key}
+            onClick={() => {
+              setModalIsOpen(true);
+            }}
           />
         ))}
       </PlantArea>
+      <Modal isOpen={modalIsOpen}>
+        <Close
+          onClick={() => {
+            setModalIsOpen(false);
+          }}
+        >
+          Fechar
+        </Close>
+        <div>
+          {product?.plants?.map((index, key) => (
+            <Plant
+              src={index.url || "https://via.placeholder.com/1920x1080"}
+              key={key}
+            />
+          ))}
+        </div>
+      </Modal>
       <Related products={related} />
     </Container>
   );

@@ -18,7 +18,7 @@ model Product {
   bathrooms   Int
   parkings    Int
   squareArea  Int
-  description String         @db.VarChar(500)
+  description String         @db.VarChar(1000)
   price       Decimal        @db.Decimal(10, 2)
   images      ProductImage[]
   plants      ProductPlant[]
